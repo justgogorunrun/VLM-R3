@@ -16,6 +16,11 @@ cd qwen_vl_finetune
 bash sft_7b.sh
 ```
 ### GRPO
+We use Qwen2.5 72B API as judge model. Please set:
+```bash
+export API_KEY="your_api_key_here" 
+export API_BASE_URL="your_api_base_url" # "https://dashscope.aliyuncs.com/compatible-mode/v1" for example
+```
 
 ```bash
 bash run_rgrpo_vllm.sh
@@ -34,27 +39,37 @@ bash run_rgrpo_vllm.sh
 coming soon
 
 ## Evaluation
+For the following benchmarks, you can use our provided standalone scripts.
 ```bash
 cd src/eval
 ```
 - [V*](https://huggingface.co/datasets/craigwu/vstar_bench)
-```bash
-python test_vstar_r3.py
-```
+  ```bash
+  python test_vstar_r3.py
+  ```
 - [MMVP](https://huggingface.co/datasets/MMVP/MMVP)
-```bash
-python test_mmvp_r3.py
-```
+  ```bash
+  python test_mmvp_r3.py
+  ```
 - [CVBench](https://huggingface.co/datasets/nyu-visionx/CV-Bench)
-```bash
-python test_cvbench_r3.py
-```
+  ```bash
+  python test_cvbench_r3.py
+  ```
+  
+For other benchmarks like ScienceQA, HR-Bench, and MME-RealWorld, we use [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval). To run these evaluations, please follow these steps:
 
-For other benchmarks such as HR-Bench, MME-RealWorld, and ScienceQA, we use [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval). To run these evaluations, please follow these steps:
-
-1.  Replace the `lmms_eval/models/vllm.py` file in your `lmms-eval` installation with our provided `src/eval/vllm_r3_lmm-eval.py`.
+1.  Replace the `lmms_eval/models/vllm.py` file in your `lmms-eval` code base with our provided `src/eval/vllm.py`.
 2.  When launching the evaluation script, choose `vllm` as the model for evaluation.
-
+```bash
+CUDA_VISIBLE_DEVICES=0 python3 -m lmms_eval \
+    --model vllm \
+    --model_args model_version=path/to/ckpt,tensor_parallel_size=1,gpu_memory_utilization=0.9 \
+    --tasks hrbench \
+    --batch_size 16 \
+    --log_samples \
+    --log_samples_suffix vllm \
+    --output_path ./logs_rl
+```
 
 ## Acknowledgements
 

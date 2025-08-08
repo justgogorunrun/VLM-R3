@@ -433,8 +433,10 @@ class VLLM(lmms):
                 except json.JSONDecodeError:
                     eval_logger.warning(f"Failed to parse JSON-like string for argument '{key}': {value}")
 
-        self.min_pixels = 4*28*28
+        self.min_pixels = 32*28*28
         self.max_pixels = 2048*28*28*4
+        self.crop_min_pixels = 32*28*28
+        self.crop_max_pixels = 1024*28*28*4
         # Set up vllm client
         self.client = LLM(
             model=self.model_version,
@@ -444,8 +446,8 @@ class VLLM(lmms):
             limit_mm_per_prompt={"image": 16, "video": 10},
             mm_processor_kwargs=(
                 {
-                    "max_pixels": 2048*28*28*4,
-                    "min_pixels": 4*28*28,
+                    "max_pixels": self.max_pixels,
+                    "min_pixels": self.min_pixels,
                 }
             ),
             max_model_len=16384*4,
@@ -535,7 +537,7 @@ class VLLM(lmms):
                 if "top_p" not in gen_kwargs:
                     gen_kwargs["top_p"] = 0.95
                     
-                agent = AgentVLMVLLM(self.client, self.processor, min_pixels=self.min_pixels, max_pixels=self.max_pixels,temp_dir="./agent_crops_tmp_rl_1",temperature=gen_kwargs["temperature"], max_tokens_once=gen_kwargs["max_new_tokens"], device=self.device)
+                agent = AgentVLMVLLM(self.client, self.processor, min_pixels=self.min_pixels, max_pixels=self.max_pixels,temp_dir="./agent_crops_tmp_rl_1",temperature=gen_kwargs["temperature"], max_tokens_once=gen_kwargs["max_new_tokens"], device=self.device, crop_max_pixels=self.crop_max_pixels, crop_min_pixels=self.crop_min_pixels)
                 # params = {
                 #     "temperature": gen_kwargs["temperature"],
                 #     # "max_tokens": gen_kwargs["max_new_tokens"],
