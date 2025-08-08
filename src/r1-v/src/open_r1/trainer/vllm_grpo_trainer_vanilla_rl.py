@@ -487,8 +487,7 @@ class Qwen2VLRGRPOVLLMTrainer(Trainer):
         # Processing class
         if processing_class is None:
             if "Qwen2" in model_id or "Qwen2.5-VL" in model_id or "Aria" in model_id:
-                # processing_class = AutoProcessor.from_pretrained(model_id)
-                processing_class = AutoProcessor.from_pretrained("/data/jcy/ckpt/Qwen2.5-VL-7B-Instruct", min_pixels=min_pixels, max_pixels=max_pixels)
+                processing_class = AutoProcessor.from_pretrained(model_id, min_pixels=min_pixels, max_pixels=max_pixels)
                 pad_token_id = processing_class.tokenizer.pad_token_id
                 processing_class.pad_token_id = pad_token_id
                 processing_class.eos_token_id = processing_class.tokenizer.eos_token_id

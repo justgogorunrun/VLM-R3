@@ -521,7 +521,7 @@ def main(script_args, training_args, model_args):
                 item['problem'] = t["question"]
                 item['solution'] = t["answer"]
                 item['source'] = t["source"]
-                all_data.append(item) # {'image_path': ['/data/jcy/data/data/coco/train2014/COCO_train2014_000000581857.jpg'], 'problem': 'Please provide the bounding box coordinate of the region this sentence describes: the lady with the blue shirt.', 'solution': '[103.93, 299.99, 238.15, 477.41]', 'accu_reward_method': 'default'}
+                all_data.append(item)
 
     dataset = Dataset.from_list(all_data)
 

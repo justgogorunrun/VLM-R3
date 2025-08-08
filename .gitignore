@@ -1,6 +1,7 @@
 output/
 *_my.py
 *_my.sh
+*_my.txt
 *.json
 images_old/
 crops_dataset/

@@ -36,10 +36,17 @@ coming soon
 ## Evaluation
 ```bash
 cd src/eval
+```
+- [V*](https://huggingface.co/datasets/craigwu/vstar_bench)
+```bash
 python test_vstar_r3.py
-
+```
+- [MMVP](https://huggingface.co/datasets/MMVP/MMVP)
+```bash
 python test_mmvp_r3.py
-
+```
+- [CVBench](https://huggingface.co/datasets/nyu-visionx/CV-Bench)
+```bash
 python test_cvbench_r3.py
 ```
 

@@ -5,8 +5,8 @@
 
 TIMESTAMP=$(date +"%m%d_%H%M")
 
-export API_KEY = "your_api_key_here"  # Update with your actual API key
-export API_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+export API_KEY="your_api_key_here"  # Update with your actual API key
+export API_BASE_URL="your_api_base_url" # for example "https://dashscope.aliyuncs.com/compatible-mode/v1"
 export DEBUG_MODE="true"
 export LOG_PATH="./log/vllm_run_acc_${TIMESTAMP}.txt"
 export LOG_PATH_FORMAT="./log/vllm_run_format_${TIMESTAMP}.txt"
