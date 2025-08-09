@@ -178,7 +178,7 @@ with open(f"test_cvbench_log_{timestamp}.txt", "w") as log_file:
 
         except Exception as e:
             log_file.write(f"Error processing sample {cnt}: {e}\n")
-
+    log_file.write("model_path: {}\n".format(MODEL_PATH))
     log_file.write(f"Final accuracy: {correct_num / total_num:.4f}\n")
 
 print(f"Final accuracy: {correct_num / total_num:.4f}")

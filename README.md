@@ -1,4 +1,4 @@
-# VLM-R3: Region Recognition, Reasoning, and Refinement for Enhanced Multimodal Chain-of-Thought
+# VLM-R3
 This is the official code for [VLM-R $^3$: Region Recognition, Reasoning, and Refinement for Enhanced Multimodal Chain-of-Thought](https://arxiv.org/abs/2505.16192).
 
 ## Setup
@@ -11,6 +11,7 @@ bash setup.sh
 
 ## Training
 ### SFT
+Download the [SFT dataset](https://www.modelscope.cn/datasets/LittleHenry/VLM-R3-sft-rl-v1/resolve/master/dataset.zip) and put it under `qwen_vl_finetune/dataset/`.
 ```bash
 cd qwen_vl_finetune
 bash sft_7b.sh
@@ -21,7 +22,7 @@ We use Qwen2.5 72B API as judge model. Please set:
 export API_KEY="your_api_key_here" 
 export API_BASE_URL="your_api_base_url" # "https://dashscope.aliyuncs.com/compatible-mode/v1" for example
 ```
-
+Download the [RL dataset](https://www.modelscope.cn/datasets/LittleHenry/VLM-R3-sft-rl-v1/resolve/master/data.zip) and put it under `data/`.
 ```bash
 bash run_rgrpo_vllm.sh
 ```
@@ -33,10 +34,7 @@ bash run_rgrpo_vllm.sh
 ## Resources
 ### Model
 - ModelScope: [VLM-R3-7b-rl-v1](https://www.modelscope.cn/models/LittleHenry/VLM-R3-7b-rl-v1)
-- Huggingface: 
-
-### Dataset
-coming soon
+- Huggingface: coming soon
 
 ## Evaluation
 For the following benchmarks, you can use our provided standalone scripts.
@@ -64,7 +62,7 @@ For other benchmarks like ScienceQA, HR-Bench, and MME-RealWorld, we use [lmms-e
 CUDA_VISIBLE_DEVICES=0 python3 -m lmms_eval \
     --model vllm \
     --model_args model_version=path/to/ckpt,tensor_parallel_size=1,gpu_memory_utilization=0.9 \
-    --tasks hrbench \
+    --tasks mmerealworld_lite \
     --batch_size 16 \
     --log_samples \
     --log_samples_suffix vllm \
