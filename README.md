@@ -30,11 +30,9 @@ bash run_rgrpo_vllm.sh
 - Note: Please Keep the per_device_train_batch_size to 1 for now, as there is a revealed bug about batched training.
 
 
-
 ## Resources
 ### Model
-- ModelScope: [VLM-R3-7b-rl-v1](https://www.modelscope.cn/models/LittleHenry/VLM-R3-7b-rl-v1)
-- Huggingface: coming soon
+- Huggingface: [VLM-R3-7b-rl-v1](https://huggingface.co/lh-hyr/VLM-R3-7b-rl-v1)
 
 ## Evaluation
 For the following benchmarks, you can use our provided standalone scripts.
@@ -42,17 +40,17 @@ For the following benchmarks, you can use our provided standalone scripts.
 cd src/eval
 ```
 - [V*](https://huggingface.co/datasets/craigwu/vstar_bench)
-  ```bash
-  python test_vstar_r3.py
-  ```
+```bash
+python test_vstar_r3.py
+```
 - [MMVP](https://huggingface.co/datasets/MMVP/MMVP)
-  ```bash
-  python test_mmvp_r3.py
-  ```
+```bash
+python test_mmvp_r3.py
+```
 - [CVBench](https://huggingface.co/datasets/nyu-visionx/CV-Bench)
-  ```bash
-  python test_cvbench_r3.py
-  ```
+```bash
+python test_cvbench_r3.py
+```
   
 For other benchmarks like ScienceQA, HR-Bench, and MME-RealWorld, we use [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval). To run these evaluations, please follow these steps:
 
