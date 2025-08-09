@@ -27,12 +27,12 @@ Download the [RL dataset](https://www.modelscope.cn/datasets/LittleHenry/VLM-R3-
 bash run_rgrpo_vllm.sh
 ```
 
-- Note: Please Keep the per_device_train_batch_size to 1 for now, as there is a revealed bug about batched training.
+- Note: Please keep the per_device_train_batch_size to 1 for now, as there is a revealed bug about batched training.
 
 
 ## Resources
 ### Model
-- Huggingface: [VLM-R3-7b-rl-v1](https://huggingface.co/lh-hyr/VLM-R3-7b-rl-v1)
+- HuggingFace: [VLM-R3-7b-rl-v1](https://huggingface.co/lh-hyr/VLM-R3-7b-rl-v1)
 
 ## Evaluation
 For the following benchmarks, you can use our provided standalone scripts.
