@@ -536,8 +536,11 @@ class VLLM(lmms):
                     gen_kwargs["temperature"] = 0
                 if "top_p" not in gen_kwargs:
                     gen_kwargs["top_p"] = 0.95
+                
+                gen_kwargs["temperature"] = 0.0
+                gen_kwargs["max_new_tokens"] = 4096
                     
-                agent = AgentVLMVLLM(self.client, self.processor, min_pixels=self.min_pixels, max_pixels=self.max_pixels,temp_dir="./agent_crops_tmp_rl_1",temperature=gen_kwargs["temperature"], max_tokens_once=gen_kwargs["max_new_tokens"], device=self.device, crop_max_pixels=self.crop_max_pixels, crop_min_pixels=self.crop_min_pixels)
+                agent = AgentVLMVLLM(self.client, self.processor, min_pixels=self.min_pixels, max_pixels=self.max_pixels,temp_dir="./agent_crops_tmp_rl_tmp",temperature=gen_kwargs["temperature"], max_tokens_once=gen_kwargs["max_new_tokens"], device=self.device, crop_max_pixels=self.crop_max_pixels, crop_min_pixels=self.crop_min_pixels)
                 # params = {
                 #     "temperature": gen_kwargs["temperature"],
                 #     # "max_tokens": gen_kwargs["max_new_tokens"],
@@ -555,17 +558,20 @@ class VLLM(lmms):
                         image_path = visual
                     elif isinstance(visual, Image.Image):
                         # 暂存
-                        image_path = ".tmp_rl_1.png"
+                        image_path = ".tmp_rl_tmp.png"
                         visual.save(image_path)
                     break
                 if len(visuals)>1:
                     print("##DEBUG:  Found multiple images, using the first one")
                 
-                question = contexts
+                question = contexts.replace(" Answer in one sentence.","").replace("Hint: ","").replace("Question: ","").replace("Solution: ","").strip()
                 _, _, full_response, img_messages, text_messages = agent.process(image_path, question, 12)
+                # print(f"##DEBUG: image_path: {image_path}")
+                # print(f"##DEBUG: question: {question}")
+                # print(f"##DEBUG:  full_response: {full_response}")
 
                 content_matches = re.findall(r'<answer>(.*?)</answer>', full_response, re.DOTALL)
-                response = content_matches[-1].strip() if content_matches else full_response.strip().split('\n')[-1] # by hyr
+                response = content_matches[-1].strip() if content_matches else full_response.strip().split('\n')[-1] 
                 response_text.append(response)
             # if self.chat_template is not None:
             #     with open(self.chat_template, "r") as f:
