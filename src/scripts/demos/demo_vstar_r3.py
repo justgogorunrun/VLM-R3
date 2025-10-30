@@ -12,7 +12,7 @@ understand the step-by-step reasoning process.
 
 Example usage::
 
-    python src/scripts/demo_vstar_r3.py \
+    python src/scripts/demos/demo_vstar_r3.py \
         --model-path /path/to/model \
         --input-path /path/to/image_or_video \
         --question "Where is the red car located?"
@@ -39,7 +39,14 @@ from vllm import LLM
 
 # Ensure the repository root is on the Python path so that ``src`` can be
 # imported when this script is executed directly.
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve()
+for parent in REPO_ROOT.parents:
+    if (parent / ".git").exists():
+        REPO_ROOT = parent
+        break
+else:
+    REPO_ROOT = Path(__file__).resolve().parents[3]
+
 if str(REPO_ROOT) not in sys.path:
     sys.path.append(str(REPO_ROOT))
 
